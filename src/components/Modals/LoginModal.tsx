@@ -693,29 +693,47 @@ export const LoginModal: FC<LoginModalProps> = ({ triggerView = "btn" }) => {
         placement="center"
         scrollBehavior="inside"
         backdrop="blur"
-        size="md"
+        size="3xl"
         classNames={{
-          base: "rounded-lg",
+          base: "rounded-2xl overflow-hidden",
           header: "border-b border-divider",
           footer: "border-t border-divider",
         }}
       >
         <ModalContent>
           {() => (
-            <>
-              <ModalHeader className="flex flex-col gap-1">
-                <div className="flex items-center gap-2">
-                  <TruckElectric className="text-primary" size={24} />
-                  <h2 className="font-semibold">
-                    {t("login_modal.welcome_title")}
-                  </h2>
-                </div>
-                <p className="text-sm text-default-500">
-                  {t("login_modal.welcome_subtitle")}
-                </p>
-              </ModalHeader>
+            <div
+              className="flex flex-col md:flex-row min-h-[540px] bg-cover bg-center"
+              style={{
+                backgroundImage:
+                  "linear-gradient(rgba(255,255,255,0.88), rgba(255,255,255,0.88)), url(/images/imf%20bg.png)",
+              }}
+            >
+              {/* Left image panel */}
+              <div className="hidden md:flex w-1/2 items-center justify-center p-8">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src="/images/image.png"
+                  alt="Welcome"
+                  className="w-full h-full object-contain max-h-[520px] drop-shadow-sm"
+                />
+              </div>
 
-              <ModalBody className="py-6">
+              {/* Right form panel */}
+              <div className="w-full md:w-1/2 bg-white/80 backdrop-blur-sm">
+                <ModalHeader className="flex flex-col gap-1">
+                  <div className="flex items-center gap-2">
+                    <TruckElectric className="text-primary" size={24} />
+                    <h2 className="font-semibold">
+                      {t("login_modal.welcome_title")}
+                    </h2>
+                  </div>
+                  <p className="text-sm text-default-500">
+                    {t("login_modal.welcome_subtitle")}
+                  </p>
+                </ModalHeader>
+
+                <ModalBody className="py-6">
                 {CUSTOMER_AUTH_GOOGLE_ONLY ? (
                   <div className="flex flex-col gap-6 items-stretch text-center px-1">
                     <p className="text-sm text-default-600">
@@ -723,19 +741,12 @@ export const LoginModal: FC<LoginModalProps> = ({ triggerView = "btn" }) => {
                       configured in the admin panel under Authentication
                       settings.
                     </p>
-                    {authSettings?.googleLogin ? (
-                      <GoogleLoginBtn
-                        isLoading={isLoading}
-                        onOpenChange={onOpenChange}
-                        setIsLoading={setIsLoading}
-                        context="login"
-                      />
-                    ) : (
-                      <p className="text-danger text-sm">
-                        Google sign-in is turned off. Enable it in admin →
-                        Authentication settings.
-                      </p>
-                    )}
+                    <GoogleLoginBtn
+                      isLoading={isLoading}
+                      onOpenChange={onOpenChange}
+                      setIsLoading={setIsLoading}
+                      context="login"
+                    />
                   </div>
                 ) : (
                   <>
@@ -1004,31 +1015,29 @@ export const LoginModal: FC<LoginModalProps> = ({ triggerView = "btn" }) => {
                 )}
 
                 {/* Social Login */}
-                {authSettings?.googleLogin && (
-                  <>
-                    <div className="flex items-center gap-4 mt-6">
-                      <Divider className="flex-1" />
-                      <span className="text-default-500 text-sm">
-                        {t("login_modal.or")}
-                      </span>
-                      <Divider className="flex-1" />
-                    </div>
+                <>
+                  <div className="flex items-center gap-4 mt-6">
+                    <Divider className="flex-1" />
+                    <span className="text-default-500 text-sm">
+                      {t("login_modal.or")}
+                    </span>
+                    <Divider className="flex-1" />
+                  </div>
 
-                    <div className="flex flex-col gap-3">
-                      <GoogleLoginBtn
-                        isLoading={isLoading}
-                        onOpenChange={onOpenChange}
-                        setIsLoading={setIsLoading}
-                        context="login"
-                      />
-                    </div>
+                  <div className="flex flex-col gap-3">
+                    <GoogleLoginBtn
+                      isLoading={isLoading}
+                      onOpenChange={onOpenChange}
+                      setIsLoading={setIsLoading}
+                      context="login"
+                    />
+                  </div>
+                </>
                   </>
                 )}
-                  </>
-                )}
-              </ModalBody>
+                </ModalBody>
 
-              <ModalFooter className="flex items-center justify-center gap-2">
+                <ModalFooter className="flex items-center justify-center gap-2">
                 <p className="text-center text-sm text-default-500">
                   {t("login_modal.no_account")}
                 </p>
@@ -1044,8 +1053,9 @@ export const LoginModal: FC<LoginModalProps> = ({ triggerView = "btn" }) => {
                 >
                   {t("login_modal.create_account")}
                 </Link>
-              </ModalFooter>
-            </>
+                </ModalFooter>
+              </div>
+            </div>
           )}
         </ModalContent>
       </Modal>
