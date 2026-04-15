@@ -652,12 +652,19 @@ export const RegisterModal: FC = () => {
                           are new, you will enter name, phone, and password next
                           — web signup completes without an SMS code.
                         </p>
-                        <GoogleLoginBtn
-                          isLoading={isLoading}
-                          onOpenChange={onOpenChange}
-                          setIsLoading={setIsLoading}
-                          context="register"
-                        />
+                        {authSettings?.googleLogin ? (
+                          <GoogleLoginBtn
+                            isLoading={isLoading}
+                            onOpenChange={onOpenChange}
+                            setIsLoading={setIsLoading}
+                            context="register"
+                          />
+                        ) : (
+                          <p className="text-danger text-sm">
+                            Enable Google sign-in in admin → Authentication
+                            settings.
+                          </p>
+                        )}
                         {/*
                           Apple sign-in: disabled for Google-only storefront policy.
                           Restore when CUSTOMER_AUTH_GOOGLE_ONLY is false:
