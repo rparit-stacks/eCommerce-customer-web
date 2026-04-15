@@ -14,6 +14,17 @@ import {
 import { parse } from "cookie";
 import { GetServerSidePropsContext } from "next";
 
+const FALLBACK_FIREBASE_CONFIG = {
+  apiKey: "AIzaSyDphCoQg_PHEk1_uv-FXK7Ev4SR6AVmCwQ",
+  authDomain: "nanital-project.firebaseapp.com",
+  databaseURL: "https://nanital-project-default-rtdb.firebaseio.com",
+  projectId: "nanital-project",
+  storageBucket: "nanital-project.firebasestorage.app",
+  messagingSenderId: "234250828862",
+  appId: "1:234250828862:web:6cd30e56a8053a8b47656f",
+  measurementId: "G-40PVDSVCGB",
+} as const;
+
 export const getFlagEmoji = (countryCode: string): string => {
   const normalizedCode = countryCode.toLowerCase(); // Convert to lowercase as URLs are case-sensitive
   return `https://flagcdn.com/w320/${normalizedCode}.png`;
@@ -79,11 +90,9 @@ export function getFirebaseConfig(settings: Settings) {
     (item) => item.variable === "authentication",
   )?.value as AuthenticationSettings;
 
-  if (!authSettings || !authSettings.firebase) {
-    return null;
-  }
+  if (!authSettings || !authSettings.firebase) return FALLBACK_FIREBASE_CONFIG;
 
-  return {
+  const cfg = {
     apiKey: authSettings.fireBaseApiKey,
     authDomain: authSettings.fireBaseAuthDomain,
     databaseURL: authSettings.fireBaseDatabaseURL,
@@ -93,6 +102,17 @@ export function getFirebaseConfig(settings: Settings) {
     appId: authSettings.fireBaseAppId,
     measurementId: authSettings.fireBaseMeasurementId,
   };
+
+  // If admin settings are incomplete, don't block Google login on web.
+  const required = [
+    cfg.apiKey,
+    cfg.authDomain,
+    cfg.projectId,
+    cfg.appId,
+    cfg.messagingSenderId,
+  ].every((v) => typeof v === "string" && v.trim().length > 0);
+
+  return required ? cfg : FALLBACK_FIREBASE_CONFIG;
 }
 
 export function getWebSettings(

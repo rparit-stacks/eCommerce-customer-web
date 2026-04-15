@@ -723,19 +723,12 @@ export const LoginModal: FC<LoginModalProps> = ({ triggerView = "btn" }) => {
                       configured in the admin panel under Authentication
                       settings.
                     </p>
-                    {authSettings?.googleLogin ? (
-                      <GoogleLoginBtn
-                        isLoading={isLoading}
-                        onOpenChange={onOpenChange}
-                        setIsLoading={setIsLoading}
-                        context="login"
-                      />
-                    ) : (
-                      <p className="text-danger text-sm">
-                        Google sign-in is turned off. Enable it in admin →
-                        Authentication settings.
-                      </p>
-                    )}
+                    <GoogleLoginBtn
+                      isLoading={isLoading}
+                      onOpenChange={onOpenChange}
+                      setIsLoading={setIsLoading}
+                      context="login"
+                    />
                   </div>
                 ) : (
                   <>
