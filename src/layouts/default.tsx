@@ -100,7 +100,7 @@ export default function DefaultLayout({
 
   useEffect(() => {
     if (!isLoading) {
-      onAppLoad();
+      void onAppLoad();
     }
   }, [isLoading]);
 
