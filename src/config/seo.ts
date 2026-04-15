@@ -149,7 +149,7 @@ export const seoConfig = {
   locale: "en_US",
 
   // Site URL (should be set via environment variable)
-  siteUrl: process.env.NEXT_PUBLIC_SITE_URL || "https://yourdomain.com",
+  siteUrl: process.env.NEXT_PUBLIC_SITE_URL || "https://nainistore.in",
 
   // Open Graph defaults
   openGraph: {

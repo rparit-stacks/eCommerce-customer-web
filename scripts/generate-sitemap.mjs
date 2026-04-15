@@ -6,7 +6,7 @@ import axios from 'axios';
 // Load environment variables
 config();
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://hyper-local-22.vercel.app';
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://nainistore.in';
 const API_URL = process.env.NEXT_PUBLIC_ADMIN_PANEL_URL;
 
 // Define static routes (excluding user-specific pages)
